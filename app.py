@@ -462,7 +462,7 @@ if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
 # Quiz configuration
-QUIZ_DURATION_SECONDS = 20 * 60  # 20 minutes total (adjust if required)
+QUIZ_DURATION_SECONDS = 20 * 60  # 40 minutes total (adjust if required)
 
 # ----------------------------
 # Start screen
@@ -474,7 +474,7 @@ if not st.session_state.started:
         """
         **Instructions**
         - Total questions: **{}** (app expects 80).
-        - Time allowed: **20 minutes**.
+        - Time allowed: **40 minutes**.
         - Questions are randomized.
         - Use **Previous** to go back and change an answer.
         - Click **Submit** to lock-in answer for the current question.
