@@ -511,122 +511,94 @@ def get_time_left():
     elapsed = time.time() - st.session_state.start_time
     return max(0, QUIZ_DURATION_SECONDS - int(elapsed))
 
+# ----------------------------
+# Finish quiz and results
+# ----------------------------
 def finish_quiz():
-    st.success(f"🎓 Quiz completed! Your score: **{st.session_state.score} / {TOTAL_QUESTIONS}**")
-    # Optionally show review
-    if st.checkbox("Show review of answers"):
-        for idx_q in range(TOTAL_QUESTIONS):
-            q_global_idx = st.session_state.order[idx_q]
-            q_item = QUESTIONS[q_global_idx]
-            user_ans = st.session_state.answers.get(q_global_idx, None)
-            correct_idx = q_item["a"]
-            st.write(f"**Q{idx_q+1}.** {q_item['q']}")
-            st.write(f"- Your answer: {q_item['opts'][user_ans] if user_ans is not None else 'No answer'}")
-            st.write(f"- Correct answer: {q_item['opts'][correct_idx]}")
-            st.markdown("---")
-    # Downloadable result
-    result = {
-        "score": st.session_state.score,
-        "total": TOTAL_QUESTIONS,
-        "answers": st.session_state.answers
-    }
-    st.download_button("Download results (JSON)", data=json.dumps(result, indent=2), file_name="quiz_results.json")
-    if st.button("🔁 Restart Quiz"):
-        # reset everything
-        st.session_state.started = False
-        st.session_state.index = 0
-        st.session_state.score = 0
-        st.session_state.order = list(range(TOTAL_QUESTIONS))
-        random.shuffle(st.session_state.order)
-        st.session_state.answers = {}
-        st.session_state.start_time = None
+    st.session_state.started = False
+    score = st.session_state.score
+    total = TOTAL_QUESTIONS
+
+    st.title("🎉 Quiz Completed!")
+    st.success(f"Your final score: **{score} / {total}**")
+
+    st.markdown("### 📝 Summary of Your Answers")
+    for i, selected in st.session_state.answers.items():
+        q = QUESTIONS[i]
+        correct = q["answer"]
+        user_answer = q["options"][selected] if selected is not None else "Not answered"
+
+        if user_answer == correct:
+            st.markdown(f"✅ **Q{i+1}: Correct** — {q['question']}")
+        else:
+            st.markdown(
+                f"❌ **Q{i+1}: Incorrect** — {q['question']}  
+                 **Your answer:** {user_answer}  
+                 **Correct answer:** {correct}"
+            )
+
+    st.markdown("---")
+    if st.button("🔄 Restart Quiz"):
+        for k in ["started", "index", "score", "order", "answers", "start_time"]:
+            st.session_state.pop(k, None)
         st.experimental_rerun()
 
+
 # ----------------------------
-# Timer - auto submit on expiry
+# Time Left
 # ----------------------------
 time_left = get_time_left()
-if time_left <= 0:
-    st.error("⏳ Time's up!")
+minutes = time_left // 60
+seconds = time_left % 60
+
+st.markdown(f"⏳ **Time Left:** {minutes:02d}:{seconds:02d}")
+
+if time_left == 0:
+    st.warning("⏰ Time's up! Automatically submitting your quiz.")
     finish_quiz()
     st.stop()
 
-mins = time_left // 60
-secs = time_left % 60
-st.markdown(f"⏱️ **Time Remaining:** `{int(mins):02d}:{int(secs):02d}`")
 
 # ----------------------------
-# If index out of bounds -> finish gracefully
+# Render Current Question
 # ----------------------------
-if st.session_state.index >= TOTAL_QUESTIONS:
-    # Completed
-    finish_quiz()
-    st.stop()
+q_index = st.session_state.order[st.session_state.index]
+q_obj = QUESTIONS[q_index]
 
-# ----------------------------
-# Show progress bar & question counter
-# ----------------------------
-progress_fraction = (st.session_state.index) / max(1, TOTAL_QUESTIONS)
-st.progress(progress_fraction)
-st.write(f"### Question {st.session_state.index + 1} / {TOTAL_QUESTIONS}")
+st.markdown(f"### **Question {st.session_state.index + 1} / {TOTAL_QUESTIONS}**")
+st.write(q_obj["question"])
 
-# ----------------------------
-# Safely fetch current question
-# ----------------------------
-try:
-    q_global_idx = st.session_state.order[st.session_state.index]
-except Exception as e:
-    st.error("Internal indexing error: index out of range. Resetting quiz.")
-    st.session_state.index = 0
-    st.session_state.order = list(range(TOTAL_QUESTIONS))
-    random.shuffle(st.session_state.order)
-    st.session_state.answers = {}
-    st.experimental_rerun()
+options = q_obj["options"]
 
-q_item = QUESTIONS[q_global_idx]
-st.subheader(q_item["q"])
+# Previously selected
+default_choice = st.session_state.answers.get(q_index, None)
 
-# radio selection - keep user's previous selection if any
-prev_sel = None
-if q_global_idx in st.session_state.answers:
-    prev_sel = st.session_state.answers[q_global_idx]
+choice = st.radio("Select your answer:", options, index=default_choice if default_choice is not None else 0)
 
-choice = st.radio("Choose one:", q_item["opts"], index=(prev_sel if prev_sel is not None else 0), key=f"choice_{st.session_state.index}")
+# Submit button
+if st.button("Submit"):
+    # save answer
+    st.session_state.answers[q_index] = choice_index = options.index(choice)
 
-# Buttons: Previous, Submit/Next, Quit & Submit
-col_prev, col_submit, col_quit = st.columns([1, 1, 1])
-with col_prev:
-    if st.button("◀ Previous"):
-        if st.session_state.index > 0:
-            st.session_state.index -= 1
-            st.experimental_rerun()
-with col_submit:
-    if st.button("Submit / Next"):
-        # save answer for this global question
-        try:
-            sel_index = q_item["opts"].index(choice)
-        except ValueError:
-            sel_index = 0
-        st.session_state.answers[q_global_idx] = sel_index
-        # update score: recompute quickly to avoid double counting
-        # we compute score fresh each time to avoid increment/decrement issues
-        score_count = 0
-        for gidx, qobj in enumerate(QUESTIONS):
-            if gidx in st.session_state.answers:
-                if st.session_state.answers[gidx] == qobj["a"]:
-                    score_count += 1
-        st.session_state.score = score_count
+    # correct answer
+    if choice == q_obj["answer"]:
+        st.session_state.score += 1
 
+    # next question
+    if st.session_state.index < TOTAL_QUESTIONS - 1:
         st.session_state.index += 1
-        if st.session_state.index >= TOTAL_QUESTIONS:
-            finish_quiz()
-            st.stop()
-        else:
-            st.experimental_rerun()
-with col_quit:
-    if st.button("Quit & Submit"):
+    else:
         finish_quiz()
         st.stop()
 
-# Small note / debug info
-st.caption("Tip: Use 'Previous' to change an earlier answer. Your progress is saved in session.")
+# Navigation buttons
+col_prev, col_next = st.columns([1, 1])
+with col_prev:
+    if st.session_state.index > 0:
+        if st.button("⬅️ Previous"):
+            st.session_state.index -= 1
+
+with col_next:
+    if st.session_state.index < TOTAL_QUESTIONS - 1:
+        if st.button("Next ➡️"):
+            st.session_state.index += 1
