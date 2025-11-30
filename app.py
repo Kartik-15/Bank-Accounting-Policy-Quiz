@@ -65,16 +65,9 @@ QUESTIONS = [
 
 # ---- Additional 40 advanced questions (from user) ----
 {"q": "In the Bank’s accounting policies, which of the following combinations correctly reflects the applicable framework for financial statement preparation?", "opts": ["Indian AS + IFRS + RBI regulations","Indian GAAP + ICAI AS + RBI guidelines + statutory provisions","IFRS only + Banking Regulation Act","Indian GAAP only without RBI consideration"], "a": 1},
-{"q": "Which of the following statements about the use of estimates is TRUE?
-1. Estimates affect only assets but not liabilities.
-2. Estimates affect reported assets, liabilities, contingent liabilities, income and expenses.
-3. The Bank acknowledges that future results may differ from the estimates.", "opts": ["Only 2","1 & 2","2 & 3","All three"], "a": 2},
+{"q": "Which of the following statements about the use of estimates is TRUE? /n1. Estimates affect only assets but not liabilities. /n2. Estimates affect reported assets, liabilities, contingent liabilities, income and expenses. /n3. The Bank acknowledges that future results may differ from the estimates.", "opts": ["Only 2","1 & 2","2 & 3","All three"], "a": 2},
 {"q": "For NPAs, recovery received after the date of classification is appropriated:", "opts": ["First to charges, then interest","First to interest, then principal","First to principal, then interest/charges","Equally between interest & principal"], "a": 2},
-{"q": "Which of the below incomes are accounted only on realization, not on accrual?
-1. Locker rent
-2. Commission other than LC/LG/Insurance/Govt business
-3. Dividend income
-4. Exchange income", "opts": ["1, 2 and 3","2 and 4","1, 2, 3 and 4","Only 3"], "a": 2},
+{"q": "Which of the below incomes are accounted only on realization, not on accrual?/n1. Locker rent /n2. Commission other than LC/LG/Insurance/Govt business /n3. Dividend income /n4. Exchange income", "opts": ["1, 2 and 3","2 and 4","1, 2, 3 and 4","Only 3"], "a": 2},
 {"q": "A foreign currency loan disbursed on 10th March is initially recorded at:", "opts": ["RBI reference rate of March 10","FEDAI weekly average rate applicable for the week","Monthly closing rate","Spot exchange rate on 10th March"], "a": 1},
 {"q": "Overseas branches are classified as Non-Integral Operations. Which is the direct implication?", "opts": ["Exchange differences go to P&L immediately","Exchange differences accumulate in Foreign Currency Translation Reserve","Assets translated at average rates","Contingent liabilities not translated"], "a": 1},
 {"q": "A Government security under AFS category is revalued quarterly. Net depreciation for the quarter across performing investments is:", "opts": ["Debited to P&L","Credited to P&L","Debited to AFS Reserve","Ignored until sale"], "a": 2},
@@ -90,17 +83,10 @@ QUESTIONS = [
 {"q": "Fixed assets costing ≤ ₹1,000 are:", "opts": ["Capitalized and depreciated fully","Not capitalized, charged as revenue expenditure","Capitalized with 100% depreciation","Treated as inventory"], "a": 1},
 {"q": "A single asset costing ₹3,800 is:", "opts": ["Expensed","Capitalized and depreciated over useful life","Capitalized and depreciated 100% to Re.1 at year-end","Recognized only when put to use next year"], "a": 2},
 {"q": "Depreciation on revalued portion of fixed assets is:", "opts": ["Ignored","Charged to P&L and equivalent amount transferred from Revaluation Reserve","Adjusted against AFS Reserve","Added to carrying cost"], "a": 1},
-{"q": "Which of the following are calculated using straight line method?
-1. Depreciation on premises
-2. Depreciation on computers
-3. Depreciation on vehicles
-4. Depreciation on software", "opts": ["1, 2 only","1, 3 only","1, 2, 3, 4","Only 4"], "a": 2},
+{"q": "Which of the following are calculated using straight line method?/n 1. Depreciation on premises /n 2. Depreciation on computers /n 3. Depreciation on vehicles /n 4. Depreciation on software", "opts": ["1, 2 only","1, 3 only","1, 2, 3, 4","Only 4"], "a": 2},
 {"q": "Advances are presented in the Balance Sheet:", "opts": ["Gross","Net of all provisions including standard asset provisions","Net of specific provisions but excluding general provision for standard assets","Net only if NPA"], "a": 2},
 {"q": "Provision for diminution in fair value arising from restructuring is:", "opts": ["Added to capital","Reduced from advances","Shown under other liabilities","Adjusted against AFS-Reserve"], "a": 1},
-{"q": "Which statements about derivatives are correct?
-1. Hedging derivatives gains/losses are deferred and amortized.
-2. Trading derivatives MTM impact goes to P&L.
-3. Hedging derivatives are never marked to market.", "opts": ["Only 1","1 & 2","2 & 3","Only 3"], "a": 1},
+{"q": "Which statements about derivatives are correct? /n 1. Hedging derivatives gains/losses are deferred and amortized. /n 2. Trading derivatives MTM impact goes to P&L. /n 3. Hedging derivatives are never marked to market.", "opts": ["Only 1","1 & 2","2 & 3","Only 3"], "a": 1},
 {"q": "For trading derivatives, gain/loss on termination is:", "opts": ["Deferred","Recognized in P&L","Adjusted against reserves","Ignored"], "a": 1},
 {"q": "Provision for pension and gratuity is determined based on:", "opts": ["Historical trend","Actuarial valuation","Company-specific policy","Board direction"], "a": 1},
 {"q": "Deferred tax assets on carry-forward losses require:", "opts": ["Probability","Reasonable certainty","Virtual certainty with convincing evidence","Market evidence"], "a": 2},
