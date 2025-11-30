@@ -531,8 +531,7 @@ def finish_quiz():
         if user_answer == correct:
             st.markdown(f"✅ **Q{i+1}: Correct** — {q['question']}")
         else:
-            st.markdown(
-                f"❌ **Q{i+1}: Incorrect** — {q['question']}  
+            st.markdown(f"❌ **Q{i+1}: Incorrect** — {q['question']}
                  **Your answer:** {user_answer}  
                  **Correct answer:** {correct}"
             )
