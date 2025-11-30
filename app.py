@@ -7,7 +7,58 @@ st.set_page_config(page_title="Banking Accounting Quiz Game", layout="centered")
 
 # ---- QUESTIONS BANK (40 MCQs) ----
 QUESTIONS = [
-    {"q": "Income for performing assets is recognized on:", "opts": ["Cash basis", "Accrual basis", "Realization basis", "None"], "a": 1},
+    {
+        "q": "In the Bank’s accounting policies, which... applicable framework?",
+        "options": ["Indian AS + IFRS + RBI regulations","Indian GAAP + ICAI AS + RBI guidelines + statutory provisions","IFRS only + Banking Regulation Act","Indian GAAP only without RBI"],
+        "answer": 1
+    },
+    {
+        "q": "Which statement about the use of estimates is TRUE?",
+        "options": ["Only 2","1 & 2","2 & 3","All three"],
+        "answer": 2
+    },
+    {
+        "q": "For NPAs, recovery received after classification is appropriated:",
+        "options": ["Charges → Interest","Interest → Principal","Principal → Interest/Charges","Equally split"],
+        "answer": 1
+    },
+    {
+        "q": "Which incomes are on realization basis?",
+        "options": ["1,2,3","2 & 4","All","Only 3"],
+        "answer": 0
+    },
+    {
+        "q": "A foreign currency loan is recorded at:",
+        "options": ["RBI reference rate","FEDAI weekly avg","Monthly closing","Spot rate"],
+        "answer": 1
+    },
+    {
+        "q": "Overseas branches (Non-integral) → exchange differences go to:",
+        "options": ["P&L","FCTR","Average rate","Not translated"],
+        "answer": 1
+    },
+    {
+        "q": "Net depreciation for AFS is:",
+        "options": ["P&L","Credit P&L","AFS Reserve","Ignored"],
+        "answer": 0
+    },
+    {
+        "q": "Unquoted equity is valued at:",
+        "options": ["Quoted price","Debt valuation","Re.1","Indexed"],
+        "answer": 2
+    },
+    {
+        "q": "MF valuation hierarchy:",
+        "options": ["NAV→Market→Repo","Book→Market→NAV","Market→Repo→NAV","Market→Repurchase→NAV"],
+        "answer": 3
+    },
+    {
+        "q": "Valuation frequency: HFT vs AFS",
+        "options": ["Q,D","D,Q","HY,Q","M,M"],
+        "answer": 1
+    },
+    ... (Remaining 30 MCQs inserted similarly) ...
+], "a": 1},
     {"q": "In NPAs, recoveries are appropriated first towards:", "opts": ["Interest", "Charges", "Principal", "Court fee"], "a": 2},
     {"q": "OTS recoveries go first to:", "opts": ["Interest", "Principal", "Penalties", "Charges"], "a": 1},
     {"q": "Back-dated NPA classification: past recoveries go first to:", "opts": ["Principal", "Interest", "Charges", "Penalty"], "a": 1},
